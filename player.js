@@ -11,6 +11,7 @@ class Player
     this.velocity = createVector(0, 0);
     this.acceleration = createVector(0, 0);
     this.gravity = createVector(0, this.maxSpeed / 10);
+    this.angle = radians(0);
 
     this.color = color(255, 242, 0);
 
@@ -24,6 +25,7 @@ class Player
     // rectMode(CENTER)
     // rect(this.position.x, this.position.y, this.w, this.w);
     translate(this.position.x, this.position.y);
+    rotate(this.angle);
     beginShape(TRIANGLES);
     vertex(this.w, 0);
     vertex(-this.w, this.w);
@@ -71,6 +73,8 @@ class Player
       this.velocity.add(this.acceleration);
       this.velocity.limit(7);
       this.position.add(this.velocity);
+
+      this.angle = map(this.velocity.y, -7, 7, radians(-45), radians(45));
 
       //limit the player at the top of the screen
       if (this.position.y < -this.w * 2)
